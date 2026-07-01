@@ -1,4 +1,4 @@
-# Taskflow — Secure Task Manager API
+# Taskflow — Secure Task Management API
 
 A REST API with JWT authentication, role-based access control, and full task CRUD, built as a Backend Developer Intern assignment. Includes a React frontend to demo the APIs live.
 
@@ -26,9 +26,11 @@ A REST API with JWT authentication, role-based access control, and full task CRU
 - API versioning (`/api/v1`)
 
 ## Project Structure
+```text
 project-name/
 ├── backend/
-│   ├── config/db.js
+│   ├── config/
+│   │   └── db.js
 │   ├── controllers/
 │   ├── middleware/
 │   ├── models/
@@ -39,11 +41,12 @@ project-name/
 │   ├── server.js
 │   └── .env (not committed)
 └── frontend/
-├── src/
-│   ├── pages/
-│   ├── api.js
-│   └── index.css
-└── vite.config.js
+    ├── src/
+    │   ├── pages/
+    │   ├── api.js
+    │   └── index.css
+    └── vite.config.js
+```
 
 ## Setup
 
@@ -80,78 +83,9 @@ Opens at `http://localhost:5173`. Make sure the backend is running first.
 
 ## API Documentation
 
-Base URL: `http://localhost:5000/api/v1`
-
-Every response follows this shape:
-```json
-{ "success": true, "data": { ... } }
-```
-or on error:
-```json
-{ "success": false, "error": "message here" }
-```
-
-### Auth
-
-**Register** — `POST /auth/register` — Public
-
-Request:
-```json
-{ "name": "Test User", "email": "test@example.com", "password": "test123" }
-```
-Response `201`:
-```json
-{ "success": true, "data": { "id": "...", "name": "Test User", "email": "test@example.com", "role": "user", "token": "..." } }
-```
-
-**Login** — `POST /auth/login` — Public
-
-Request:
-```json
-{ "email": "test@example.com", "password": "test123" }
-```
-Response `200`: same shape as Register.
-
-**Get current user** — `GET /auth/me` — Requires `Authorization: Bearer <token>`
-
-Response `200`:
-```json
-{ "success": true, "data": { "_id": "...", "name": "...", "email": "...", "role": "user" } }
-```
-
-### Tasks
-
-All routes below require `Authorization: Bearer <token>`.
-
-**Create task** — `POST /tasks`
-
-Request:
-```json
-{ "title": "Learn Express", "description": "Finish backend assignment", "status": "pending" }
-```
-
-**Get my tasks** — `GET /tasks?page=1&limit=10&status=pending`
-
-Query params (all optional): `page`, `limit`, `status` (`pending` | `in-progress` | `done`)
-
-Response `200`:
-```json
-{ "success": true, "count": 2, "total": 2, "page": 1, "pages": 1, "data": [ { "_id": "...", "title": "...", "status": "pending" } ] }
-```
-
-**Get single task** — `GET /tasks/:id` — owner or admin only
-
-**Update task** — `PUT /tasks/:id` — owner or admin only
-
-Request (any subset of fields):
-```json
-{ "status": "done" }
-```
-
-**Delete task** — `DELETE /tasks/:id` — owner or admin only
-
-**Get all tasks (admin)** — `GET /tasks/all?status=&userId=&page=&limit=` — admin role only, returns `403` for regular users
-
+Import the collections from `backend/postman/` into Postman:
+- `Auth.postman_collection.json` — register, login, get current user
+- `Tasks.postman_collection.json` — create, read, update, delete, admin view
 ### Route summary
 
 | Method | Endpoint | Access |
@@ -190,4 +124,4 @@ This is a small monolith by design, but the structure anticipates growth:
 
 ## Author
 
-Built by [your name] as a Backend Developer Intern assignment.
+Built by [Tarun Barfa] as a Backend Developer Intern assignment.
