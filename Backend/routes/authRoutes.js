@@ -4,7 +4,7 @@ const rateLimit = require('express-rate-limit');
 const { registerUser, loginUser, getMe } = require('../controllers/authController');
 const { protect } = require('../middleware/auth');
 
-// Blocks brute-force attempts: max 20 requests per IP every 15 minutes
+// max 20 requests per IP every 15 minutes
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 20,
